@@ -1,0 +1,2 @@
+export SUPABASE_URL="your-supabase-url-here"
+export SUPABASE_ANON_KEY="your-supabase-key-here"

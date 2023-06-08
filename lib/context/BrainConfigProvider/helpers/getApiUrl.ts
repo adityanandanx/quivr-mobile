@@ -1,4 +1,5 @@
 import Constants from "expo-constants";
+import { BACKEND_PORT, PROD_BACKEND_DOMAIN } from "../../../../config";
 
 export default function () {
   //const inProduction = manifest.packagerOpts == null;
@@ -6,7 +7,7 @@ export default function () {
   const inExpo = Constants.manifest && Constants.manifest.debuggerHost;
 
   const apiDomain = inProduction
-    ? "mywebsite.com"
+    ? PROD_BACKEND_DOMAIN
     : inExpo
     ? Constants.manifest?.debuggerHost!.split(`:`).shift()
     : "unknown";
@@ -15,7 +16,7 @@ export default function () {
 
   const protocol = inProduction ? "https" : "http";
 
-  const apiUrl = `${protocol}://${apiDomain}:5050`;
+  const apiUrl = `${protocol}://${apiDomain}:${BACKEND_PORT}`;
   console.log("apiUrl:", apiUrl);
   return apiUrl;
 }
