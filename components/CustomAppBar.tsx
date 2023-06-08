@@ -19,7 +19,9 @@ const CustomAppBar: FC<CustomAppBarProps> = ({
 
   return (
     <Appbar.Header elevated>
-      {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
+      {options.headerBackVisible ? (
+        <Appbar.BackAction onPress={navigation.goBack} />
+      ) : null}
       <Appbar.Content title={title} />
       <Switch value={darkMode} onValueChange={toggleDarkMode} />
       <StatusBar style={darkMode ? "light" : "dark"} />

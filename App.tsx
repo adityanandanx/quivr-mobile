@@ -23,17 +23,12 @@ export default function App() {
 
         <Stack.Screen name="Signup" component={Signup} />
 
-        <Stack.Screen name="Dashboard" component={DashboardNavigation} />
+        <Stack.Screen
+          options={{ headerBackVisible: false }}
+          name="Dashboard"
+          component={DashboardNavigation}
+        />
       </Stack.Navigator>
     </Paper>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

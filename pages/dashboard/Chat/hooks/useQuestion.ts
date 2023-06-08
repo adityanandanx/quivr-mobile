@@ -33,7 +33,7 @@ export const useQuestion = () => {
   }, []);
 
   const askQuestion = async () => {
-    if (question.trim().length === 0) {
+    if (question.trim().length === 0 || isPending) {
       return;
     }
     setHistory((hist) => [...hist, ["user", question]]);

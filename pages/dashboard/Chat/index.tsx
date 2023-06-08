@@ -1,6 +1,7 @@
 import { FC } from "react";
 import PageContainer from "../../../components/PageContainer";
 import {
+  ActivityIndicator,
   IconButton,
   Portal,
   Text,
@@ -46,7 +47,13 @@ const Chat: FC<ChatProps> = ({}) => {
           onChangeText={(t) => setQuestion(t)}
           mode="outlined"
           placeholder="Type something"
-          right={<TextInput.Icon onPress={askQuestion} icon={"send"} />}
+          right={
+            <TextInput.Icon
+              disabled={isPending}
+              onPress={askQuestion}
+              icon={"send"}
+            />
+          }
         />
       </Portal>
     </PageContainer>

@@ -1,6 +1,7 @@
 import "react-native-url-polyfill/auto";
 import { Session, SupabaseClient, createClient } from "@supabase/supabase-js";
 import { createContext, useContext, useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type MaybeSession = Session | null;
 
@@ -19,7 +20,9 @@ export default function SupabaseProvider({
   console.log(process.env);
 
   const [supabase] = useState(() =>
-    createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, {})
+    createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, {
+      auth: { storage: AsyncStorage as any },
+    })
   );
   const [session, setSession] = useState<Session | null>(null);
 
