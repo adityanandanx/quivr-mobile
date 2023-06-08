@@ -4,8 +4,6 @@ import { useAxios } from "../../../../lib/useAxios";
 import { Document, Message } from "../types";
 import * as DocumentPicker from "expo-document-picker";
 
-import * as NavigationService from "react-navigation-helpers";
-
 export const useFileUploader = () => {
   const [isPending, setIsPending] = useState(false);
   const [files, setFiles] = useState<Document[]>([]);
@@ -14,10 +12,6 @@ export const useFileUploader = () => {
   const { session } = useSupabase();
 
   const { axiosInstance } = useAxios();
-
-  if (!session) {
-    NavigationService.navigate("Login");
-  }
 
   const upload = useCallback(
     async (file: Document) => {

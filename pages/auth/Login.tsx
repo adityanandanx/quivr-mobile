@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -51,7 +51,7 @@ const Login: FC<LoginProps> = ({}) => {
     if (error) {
       setAuthError(error);
     } else if (data) {
-      NavigationService.navigate("Dashboard");
+      console.log("Login success");
     }
 
     setIsPending(false);

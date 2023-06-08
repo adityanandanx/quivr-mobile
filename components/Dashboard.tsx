@@ -3,6 +3,7 @@ import { BottomNavigation, Text } from "react-native-paper";
 import Upload from "../pages/dashboard/Upload";
 import Chat from "../pages/dashboard/Chat";
 import Explore from "../pages/dashboard/Explore";
+import User from "../pages/dashboard/User";
 
 interface DashboardNavigationProps {}
 
@@ -29,7 +30,7 @@ const DashboardNavigation: FC<DashboardNavigationProps> = ({}) => {
     upload: () => <Upload />,
     chat: () => <Chat />,
     explore: () => <Explore />,
-    account: () => <Text>NotificationsRoute</Text>,
+    account: () => <User />,
   });
 
   return (

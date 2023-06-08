@@ -8,6 +8,7 @@ type MaybeSession = Session | null;
 type SupabaseContext = {
   supabase: SupabaseClient;
   session: MaybeSession;
+  isPending: boolean;
 };
 
 const Context = createContext<SupabaseContext | undefined>(undefined);
@@ -17,14 +18,13 @@ export default function SupabaseProvider({
 }: {
   children: React.ReactNode;
 }) {
-  console.log(process.env);
-
   const [supabase] = useState(() =>
     createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, {
       auth: { storage: AsyncStorage as any },
     })
   );
   const [session, setSession] = useState<Session | null>(null);
+  const [isPending, setIsPending] = useState(true);
 
   useEffect(() => {
     const {
@@ -33,14 +33,15 @@ export default function SupabaseProvider({
       setSession(session);
       console.log("AUTH CHANGE");
     });
+    setIsPending(false);
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [supabase]);
+  }, []);
 
   return (
-    <Context.Provider value={{ supabase, session }}>
+    <Context.Provider value={{ supabase, session, isPending }}>
       <>{children}</>
     </Context.Provider>
   );
