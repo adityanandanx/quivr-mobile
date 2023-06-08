@@ -1,6 +1,9 @@
-on: [pull_request]
+on:
+  push:
+    branches:
+      - main
 jobs:
-  preview:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: 🏗 Setup repo
@@ -15,13 +18,11 @@ jobs:
       - name: 🏗 Setup EAS
         uses: expo/expo-github-action@v8
         with:
-          expo-version: latest
+          eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: 📦 Install dependencies
         run: yarn install
 
-      - name: 🚀 Create preview
-        uses: expo/expo-github-action/preview@v8
-        with:
-          command: eas update --auto
+      - name: 🚀 Build app
+        run: eas build --non-interactive
