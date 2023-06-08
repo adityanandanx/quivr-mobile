@@ -22,10 +22,15 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "windowSoftInputMode": "adjustResize"
+      "package": "com.mad.quivr"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "be67e9bc-6dc5-4e17-bbe4-b7c94387e28f"
+      }
     }
   }
 }
