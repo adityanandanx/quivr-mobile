@@ -6,6 +6,7 @@ import {
   IconButton,
   List,
   Portal,
+  Snackbar,
   Text,
 } from "react-native-paper";
 import PageContainer from "../../../components/PageContainer";
@@ -14,8 +15,15 @@ import { useFileUploader } from "./hooks/useFileUploader";
 interface UploadProps {}
 
 const Upload: FC<UploadProps> = ({}) => {
-  const { isPending, files, addFile, removeFile, uploadAllFiles } =
-    useFileUploader();
+  const {
+    isPending,
+    files,
+    addFile,
+    removeFile,
+    uploadAllFiles,
+    message,
+    clearMessage,
+  } = useFileUploader();
 
   return (
     <PageContainer>
@@ -64,6 +72,47 @@ const Upload: FC<UploadProps> = ({}) => {
           icon={"plus"}
           onPress={addFile}
         />
+        {/* Error snack */}
+        <Snackbar
+          action={{
+            label: "Retry",
+            onPress: () => {
+              uploadAllFiles();
+            },
+          }}
+          visible={message !== null && message.type === "error"}
+          onDismiss={clearMessage}
+        >
+          {message?.message}
+        </Snackbar>
+
+        {/* Warning snack */}
+        <Snackbar
+          action={{
+            label: "Dismiss",
+            onPress: () => {
+              clearMessage();
+            },
+          }}
+          visible={message !== null && message.type === "warning"}
+          onDismiss={() => clearMessage()}
+        >
+          {message?.message}
+        </Snackbar>
+
+        {/* Success snack */}
+        <Snackbar
+          action={{
+            label: "Dismiss",
+            onPress: () => {
+              clearMessage();
+            },
+          }}
+          visible={message !== null && message.type === "success"}
+          onDismiss={() => clearMessage()}
+        >
+          {message?.message}
+        </Snackbar>
       </Portal>
     </PageContainer>
   );

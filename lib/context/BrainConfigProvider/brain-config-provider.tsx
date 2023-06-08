@@ -5,6 +5,7 @@ import {
 } from "./helpers/brainConfigLocalStorage";
 import { BrainConfig, ConfigContext } from "./types";
 import { setEmptyStringsUndefined } from "../../helpers/setEmptyStringsUndefined";
+import getApiDomain from "./helpers/getApiUrl";
 
 export const BrainConfigContext = createContext<ConfigContext | undefined>(
   undefined
@@ -16,7 +17,7 @@ const defaultBrainConfig: BrainConfig = {
   maxTokens: 500,
   keepLocal: true,
   anthropicKey: undefined,
-  backendUrl: process.env.BACKEND_URL,
+  backendUrl: getApiDomain(),
   openAiKey: undefined,
   supabaseKey: undefined,
   supabaseUrl: undefined,
@@ -49,14 +50,14 @@ export const BrainConfigProvider = ({
   useEffect(() => {
     let conf;
     const load = async () => {
-      conf = await getBrainConfigFromLocalStorage();
+      try {
+        conf = await getBrainConfigFromLocalStorage();
+      } catch (e) {
+        saveBrainConfigInLocalStorage(defaultBrainConfig);
+      }
     };
-    try {
-      load();
-      setBrainConfig(conf ?? defaultBrainConfig);
-    } catch (e) {
-      console.log(e);
-    }
+    load();
+    setBrainConfig(conf ?? defaultBrainConfig);
   }, []);
 
   return (

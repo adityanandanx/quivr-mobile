@@ -1,9 +1,10 @@
 import { useSupabase } from "../providers/supabase-provider";
 import axios from "axios";
 import { useBrainConfig } from "./context/BrainConfigProvider/hooks/useBrainConfig";
+import getApiDomain from "./context/BrainConfigProvider/helpers/getApiUrl";
 
 const axiosInstance = axios.create({
-  baseURL: `${process.env.REACT_APP_BACKEND_URL}`,
+  baseURL: `${getApiDomain()}`,
 });
 
 export const useAxios = () => {

@@ -1,15 +1,16 @@
 import { useCallback, useState } from "react";
 import { useSupabase } from "../../../../providers/supabase-provider";
 import { useAxios } from "../../../../lib/useAxios";
-import { Document } from "../types";
+import { Document, Message } from "../types";
 import * as DocumentPicker from "expo-document-picker";
 
 import * as NavigationService from "react-navigation-helpers";
-import { AxiosError } from "axios";
 
 export const useFileUploader = () => {
   const [isPending, setIsPending] = useState(false);
   const [files, setFiles] = useState<Document[]>([]);
+  const [message, setMessage] = useState<Message | null>(null);
+
   const { session } = useSupabase();
 
   const { axiosInstance } = useAxios();
@@ -41,8 +42,9 @@ export const useFileUploader = () => {
         //       : "") + JSON.stringify(response.data.message),
         // });
         console.log(response);
+        setMessage(response.data);
       } catch (error: unknown) {
-        console.log({ error });
+        setMessage(error as Message);
 
         // publish({
         //   variant: "danger",
@@ -86,11 +88,17 @@ export const useFileUploader = () => {
     // console.log("ERROR", e);
   };
 
+  const clearMessage = () => {
+    setMessage(null);
+  };
+
   return {
     isPending,
     uploadAllFiles,
     files,
     addFile,
     removeFile,
+    message,
+    clearMessage,
   };
 };

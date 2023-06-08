@@ -13,6 +13,7 @@ import { useSupabase } from "../../../providers/supabase-provider";
 import * as NavigationService from "react-navigation-helpers";
 import DocumentItem from "./DocumentItem";
 import { Document } from "./types";
+import getApiDomain from "../../../lib/context/BrainConfigProvider/helpers/getApiUrl";
 
 interface ExploreProps {}
 
@@ -29,11 +30,12 @@ const Explore: FC<ExploreProps> = ({}) => {
   const fetchDocuments = async () => {
     setIsPending(true);
     try {
-      console.log(`Fetching documents from ${process.env.BACKEND_URL}/explore`);
+      console.log(`WAIT: Fetching documents from ${getApiDomain()}/explore`);
       const response = await axiosInstance.get<{ documents: Document[] }>(
         "/explore"
       );
       setDocuments(response.data.documents);
+      console.log(`DONE: Fetched documents from ${getApiDomain()}/explore`);
     } catch (error) {
       // console.error("Error fetching documents", error);
       setError(error as { message: string });

@@ -16,13 +16,9 @@ export const saveBrainConfigInLocalStorage = (updatedConfig: BrainConfig) => {
 export const getBrainConfigFromLocalStorage = async (): Promise<
   BrainConfig | undefined
 > => {
-  try {
-    const persistedBrainConfig = await localStorage.load({
-      key: BRAIN_CONFIG_LOCAL_STORAGE_KEY,
-    });
-    if (persistedBrainConfig === null) return;
-    return JSON.parse(persistedBrainConfig);
-  } catch (e) {
-    console.log(e);
-  }
+  const persistedBrainConfig = await localStorage.load({
+    key: BRAIN_CONFIG_LOCAL_STORAGE_KEY,
+  });
+  if (persistedBrainConfig === null) return;
+  return JSON.parse(persistedBrainConfig);
 };

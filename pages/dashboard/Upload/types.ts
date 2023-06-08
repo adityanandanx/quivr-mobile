@@ -3,3 +3,8 @@ export interface Document {
   name: string;
   mimetype?: string;
 }
+
+export interface Message {
+  type: "error" | "warning" | "success";
+  message: string;
+}
