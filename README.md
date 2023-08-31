@@ -1,3 +1,7 @@
+
+# Note
+This project has not been updated in the last month and does not work with the current version of quivr because of the huge api changes. 
+
 # Quivr - Mobile
 
 The Quivr React Native Client is a mobile application built using React Native that provides users with the ability to upload files and engage in chat conversations using the [Quivr backend API](https://github.com/stangirard/quivr).
